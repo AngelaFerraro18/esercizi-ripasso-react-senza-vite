@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>React senza Vite</title>
+    <!-- React e ReactDOM da CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { createRoot } = ReactDOM;
+        const { useState } = React;
+
+        function App() {
+            // TODO: crea uno stato "message" e mostra il messaggio
+            const [message, setMessage] = useState('Mostra un messaggio.')
+
+            function handleMessage() {
+
+                setMessage(prev => prev.includes('Bau') ? 'Mela' : 'Bau');
+            }
+
+            return (
+                <div>
+                    <h1>Hello React!</h1>
+                    {/* mostra il messaggio qui */}
+
+                    <button onClick={() => handleMessage()}>{message}</button>
+                    <FAQ />
+                </div>
+
+
+            );
+        }
+
+
+        function FAQ() {
+            return (
+                <div>
+                    <h2>FAQ</h2>
+                    <details>
+                        <summary>Domanda 1</summary>
+                        {/* risposta */}
+                        <p>Risposta 1</p>
+                    </details>
+                    <details>
+                        <summary>Domanda 2</summary>
+                        {/* risposta */}
+                        <p>Risposta 2</p>
+                    </details>
+                </div>
+            );
+        }
+
+
+        const root = createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>

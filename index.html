@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>React senza Vite</title>
+    <!-- React e ReactDOM da CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // TODO: crea un componente React che mostra "Hello React!"
+        const { createRoot } = ReactDOM;
+
+        function App() {
+            return (
+                <div>
+                    <h2>Hello React!</h2>
+
+                    <FAQ />
+                </div>
+            )
+        }
+
+        function FAQ() {
+            return (
+                <div>
+                    <h2>FAQ</h2>
+                    {/* TODO: aggiungi almeno 2 elementi <details> */}
+                    <details>
+                        <summary>Come si fa?</summary>
+                        <p>Ciao</p>
+                    </details>
+                    {/*      ogni details può avere un solo summary, se ne voglio mettere di più devo creare <details><summary> ... </summary> (altri elementi) </details>. In questo caso ho dovuto mettere questo componente in App per visualizzarlo in pagina. */}
+
+                </div>
+            );
+        }
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />)
+
+    </script>
+</body>
+
+</html>
