@@ -31,14 +31,55 @@
                 const animalsChoices = ["Cane", "Gatto", "Pappagallo", "Cavallo", "Panda"];
 
 
+                function Modal({
+                    title,
+                    content,
+                    show = false,
+                    onClose = () => { },
+                    onConfirm = () => { }
+                }) {
+                    return show && ReactDOM.createPortal(
+                        <div className="modal-container">
+                            <div className="modal">
+                                <h2>{title}</h2>
+                                <p>{content}</p>
+
+                                <div>
+                                    <button onClick={onClose}>Annulla</button>
+                                    <button onClick={onConfirm}>Conferma</button>
+                                </div>
+
+                            </div>
+                        </div>,
+                        document.body
+                    )
+                }
+
                 function AnimalList() {
                     const [animals, setAnimals] = useState([]);
+                    const [isModalOpen, setIsModalOpen] = useState(false);
+                    const [newAnimal, setNewAnimal] = useState('');
+
+
+                    function handleConfirm() {
+                        if (newAnimal.trim() !== '') {
+                            setAnimals(prev => [...prev, newAnimal.trim()]);
+                        }
+                        setNewAnimal('');
+                        setIsModalOpen(false);
+                    }
+
+                    function handleCancel() {
+                        setNewAnimal('');
+                        setIsModalOpen(false);
+                    }
 
                     function addAnimal() {
 
-                        const randomAnimal = animalsChoices[Math.floor(Math.random() * animalsChoices.length)]
+                        // const randomAnimal = animalsChoices[Math.floor(Math.random() * animalsChoices.length)]
 
-                        setAnimals(prev => [...prev, randomAnimal]);
+                        // setAnimals(prev => [...prev, randomAnimal]);
+                        setIsModalOpen(true);
 
                     }
 
@@ -51,6 +92,21 @@
                                     {animals.map((animal, index) => <li key={index}> {animal}</li>)}
                                 </ul>
                             </details>
+
+
+                            <Modal
+                                title='Aggiungi un animale'
+                                show={isModalOpen}
+                                onClose={handleCancel}
+                                onConfirm={handleConfirm}
+                                content={
+                                    <input
+                                        type='text'
+                                        value={newAnimal}
+                                        onChange={e => setNewAnimal(e.target.value)}
+                                    />
+                                }
+                            />
                         </div>
 
                     )
